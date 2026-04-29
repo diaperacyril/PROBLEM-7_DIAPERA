@@ -20,3 +20,7 @@ h1 {
     gap: 10px;
     margin-bottom: 20px;
 }
+input {
+    padding: 10px;
+    flex: 1;
+}
