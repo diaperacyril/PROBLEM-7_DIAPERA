@@ -14,7 +14,7 @@ body {
 
 h1 {
     text-align: center;
-}
+} 
 .form {
     display: flex;
     gap: 10px;
@@ -30,4 +30,7 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+}
+button:hover {
+    background: darkgreen;
 }
