@@ -44,3 +44,6 @@ li {
     border-radius: 8px;
     background: #e8f5e9;
 }
+.overdue {
+    background: #ffcccc;
+}
