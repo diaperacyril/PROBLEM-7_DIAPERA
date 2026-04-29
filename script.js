@@ -1,6 +1,0 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f8f4;
-    margin: 0;
-    padding: 20px;
-}
