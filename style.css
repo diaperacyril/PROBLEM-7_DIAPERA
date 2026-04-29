@@ -34,3 +34,7 @@ button {
 button:hover {
     background: darkgreen;
 }
+ul {
+    list-style: none;
+    padding: 0;
+}
