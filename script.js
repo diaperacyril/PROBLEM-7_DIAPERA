@@ -25,3 +25,7 @@ function addPlant() {
     document.getElementById("plantName").value = "";
     document.getElementById("frequency").value = "";
 }
+function getDaysDifference(date1, date2) {
+    const diff = new Date(date2) - new Date(date1);
+    return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
