@@ -61,4 +61,10 @@ function displayPlants() {
 
         list.appendChild(li);
     });
+
+}
+function waterPlant(index) {
+    plants[index].lastWatered = new Date().toISOString();
+    saveData();
+    displayPlants();
 }
