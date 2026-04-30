@@ -68,3 +68,5 @@ function waterPlant(index) {
     saveData();
     displayPlants();
 }
+// Load on start
+displayPlants();
