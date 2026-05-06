@@ -29,6 +29,13 @@ function getDaysDifference(date1, date2) {
     const diff = new Date(date2) - new Date(date1);
     return Math.floor(diff / (1000 * 60 * 60 * 24));
 }
+ // NEW: Calculate next watering date
+function getNextWateringDate(lastWatered, frequency) {
+    const date = new Date(lastWatered);
+    date.setDate(date.getDate() + frequency);
+    return date.toDateString();
+}
+
 function displayPlants() {
     const list = document.getElementById("plantList");
     list.innerHTML = "";
