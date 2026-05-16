@@ -4,29 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenThumb</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
- 
-    
- <!-- Form -->
-<h1>🌱 GreenThumb Tracker 🌱</h1>
 
-    <div class="form">
-        <input type="text" id="plantName" placeholder="Plant name">
-        <input type="number" id="frequency" placeholder="Water every (days)">
-        <button onclick="addPlant()">Add Plant</button>
+<body>
+
+    <div class="container">
+
+        <!-- Form -->
+        <h1>🌱 GreenThumb Tracker 🌱</h1>
+
+        <div class="form">
+            <input type="text" id="plantName" placeholder="Plant name">
+            <input type="number" id="frequency" placeholder="Water every (days)">
+            <button onclick="addPlant()">Add Plant</button>
+        </div>
+
+        <!-- ✅ ADDED: HISTORY BUTTON -->
+        <button id="historyBtn" onclick="toggleHistory()">
+            📜 View Watering History
+        </button>
+
+        <!-- ✅ ADDED: HISTORY SECTION -->
+        <div id="historySection" style="display: none;">
+            <h2>🌱 Watering History</h2>
+            <ul id="historyList"></ul>
+        </div>
+
+        <!-- Plant List -->
+        <h2>My Plants</h2>
+
+        <ul id="plantList"></ul>
+
     </div>
 
-  <!-- Plant List -->
-<h2>My Plants</h2>
-<ul id="plantList"></ul>
-</div>
-     
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
