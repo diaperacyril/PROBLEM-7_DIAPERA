@@ -1,13 +1,10 @@
 let plants = JSON.parse(localStorage.getItem("plants")) || [];
-
-/* ✅ ADDED: HISTORY STORAGE */
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
 function saveData() {
     localStorage.setItem("plants", JSON.stringify(plants));
 }
 
-/* ✅ ADDED: SAVE HISTORY */
 function saveHistory() {
     localStorage.setItem("history", JSON.stringify(history));
 }
@@ -15,7 +12,6 @@ function saveHistory() {
 function addPlant() {
 
     const name = document.getElementById("plantName").value;
-
     const frequency = document.getElementById("frequency").value;
 
     if (!name || !frequency) {
@@ -23,197 +19,92 @@ function addPlant() {
         return;
     }
 
-    const today = new Date().toISOString();
-
     plants.push({
         name,
-        frequency: parseInt(frequency),
-        lastWatered: today
+        frequency: Number(frequency),
+        lastWatered: new Date().toISOString()
     });
 
     saveData();
-
     displayPlants();
 
     document.getElementById("plantName").value = "";
-
     document.getElementById("frequency").value = "";
 }
 
 function getDaysDifference(date1, date2) {
-
-    const diff = new Date(date2) - new Date(date1);
-
-    return Math.floor(diff / (1000 * 60 * 60 * 24));
-}
-
-// Calculate next watering date
-function getNextWateringDate(lastWatered, frequency) {
-
-    const date = new Date(lastWatered);
-
-    date.setDate(date.getDate() + frequency);
-
-    return date.toDateString();
+    return Math.floor((new Date(date2) - new Date(date1)) / (1000 * 60 * 60 * 24));
 }
 
 function displayPlants() {
 
     const list = document.getElementById("plantList");
-
     list.innerHTML = "";
-
-    const today = new Date();
 
     plants.forEach((plant, index) => {
 
-        const daysPassed = getDaysDifference(
-            plant.lastWatered,
-            today
-        );
-
+        const daysPassed = getDaysDifference(plant.lastWatered, new Date());
         const daysLeft = plant.frequency - daysPassed;
-
-        const nextDate = getNextWateringDate(
-            plant.lastWatered,
-            plant.frequency
-        );
 
         const li = document.createElement("li");
 
         if (daysLeft < 0) {
-
             li.classList.add("overdue");
-
-        } else if (daysLeft === 0) {
-
-            li.classList.add("due-today");
         }
 
         li.innerHTML = `
-            <div class="plant-header">
-                🌿 <strong>${plant.name}</strong>
-            </div>
+            <strong>${plant.name}</strong><br>
+            ${daysLeft < 0 ? "⚠ Overdue" : daysLeft + " days left"}<br>
 
-            ${
-                daysLeft < 0
-                ? "⚠️ Overdue by " + Math.abs(daysLeft) + " days"
-                : daysLeft === 0
-                ? "💧 Water TODAY"
-                : "Next watering in " + daysLeft + " days"
-            }
-
-            <br>
-
-            <!-- ✅ ADDED: LAST WATERED DISPLAY -->
-            <small>
-                🕒 Last watered:
-                ${new Date(plant.lastWatered).toDateString()}
-            </small>
-
-            <br>
-
-            <small>
-                📅 Next watering:
-                ${nextDate}
-            </small>
-
-            <div class="actions">
-
-                <button class="water-btn"
-                    onclick="waterPlant(${index})">
-                    💧 Watered
-                </button>
-
-                <button class="delete-btn"
-                    onclick="deletePlant(${index})">
-                    🗑 Delete
-                </button>
-
-            </div>
+            <button onclick="waterPlant(${index})">💧 Water</button>
+            <button onclick="deletePlant(${index})">🗑 Delete</button>
         `;
 
         list.appendChild(li);
     });
 }
 
-// delete plantName
 function deletePlant(index) {
-
-    if (confirm("Delete this plant?")) {
-
-        plants.splice(index, 1);
-
-        saveData();
-
-        displayPlants();
-    }
+    plants.splice(index, 1);
+    saveData();
+    displayPlants();
 }
 
-/* ✅ FIXED + ADDED HISTORY FEATURE */
 function waterPlant(index) {
 
     plants[index].lastWatered = new Date().toISOString();
 
-    /* ✅ ADDED: SAVE TO HISTORY */
     history.unshift({
         name: plants[index].name,
         date: new Date().toISOString()
     });
 
-    saveHistory();
-
     saveData();
-
+    saveHistory();
     displayPlants();
 }
 
-/* ✅ ADDED: SHOW/HIDE HISTORY */
 function toggleHistory() {
 
-    const section =
-        document.getElementById("historySection");
+    const section = document.getElementById("historySection");
 
     if (section.style.display === "none") {
-
         section.style.display = "block";
-
         displayHistory();
-
     } else {
-
         section.style.display = "none";
     }
 }
 
-/* ✅ ADDED: DISPLAY HISTORY */
 function displayHistory() {
 
-    const historyList =
-        document.getElementById("historyList");
-
-    historyList.innerHTML = "";
-
-    if (history.length === 0) {
-
-        historyList.innerHTML =
-            "<li>No watering history yet.</li>";
-
-        return;
-    }
+    const list = document.getElementById("historyList");
+    list.innerHTML = "";
 
     history.forEach(item => {
-
         const li = document.createElement("li");
-
-        li.innerHTML = `
-            🌿 <strong>${item.name}</strong>
-            was watered on
-            <br>
-            🕒 ${new Date(item.date).toLocaleString()}
-        `;
-
-        historyList.appendChild(li);
+        li.innerHTML = `${item.name} watered on ${new Date(item.date).toLocaleString()}`;
+        list.appendChild(li);
     });
 }
 

@@ -6,15 +6,32 @@
     <title>GreenThumb</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- NAVIGATION (ENHANCED DESIGN ONLY) -->
+<nav class="navbar">
+    <div class="logo">🌱 GreenThumb</div>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#app">Tracker</a>
+    </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="home">
+    <h1>Welcome to GreenThumb 🌿</h1>
+    <p>Track your plants and never forget watering again.</p>
+    <a href="#app" class="start-btn">Start Tracking</a>
+</section>
+
+<!-- APP -->
+<section id="app">
+
     <div class="container">
 
-        <!-- Form -->
         <h1>🌱 GreenThumb Tracker 🌱</h1>
 
         <div class="form">
@@ -23,25 +40,23 @@
             <button onclick="addPlant()">Add Plant</button>
         </div>
 
-        <!-- ✅ ADDED: HISTORY BUTTON -->
         <button id="historyBtn" onclick="toggleHistory()">
             📜 View Watering History
         </button>
 
-        <!-- ✅ ADDED: HISTORY SECTION -->
-        <div id="historySection" style="display: none;">
+        <div id="historySection" style="display:none;">
             <h2>🌱 Watering History</h2>
             <ul id="historyList"></ul>
         </div>
 
-        <!-- Plant List -->
         <h2>My Plants</h2>
-
         <ul id="plantList"></ul>
 
     </div>
 
-    <script src="script.js"></script>
+</section>
+
+<script src="script.js"></script>
 
 </body>
 </html>
